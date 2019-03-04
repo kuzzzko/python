@@ -19,8 +19,10 @@ def get_int_vlan_map(filename):
                 acc_vlan_map_dict[interface] = int(line.split()[-1])
             if 'allowed vlan' in line and not acc:
                 trun_vlan_map_dict[interface] = [int(vlan) for vlan in line.split()[-1].split(',')]
-    print(trun_vlan_map_dict)
-    print(acc_vlan_map_dict)
+    return(acc_vlan_map_dict, trun_vlan_map_dict)
 
 
-get_int_vlan_map('config_sw2.txt')
+acc_vlan_map_dict,trun_vlan_map_dict = get_int_vlan_map('config_sw2.txt')
+
+print(acc_vlan_map_dict)
+print(trun_vlan_map_dict)
