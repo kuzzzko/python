@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from sys import argv #task_5.1b
 
-#ip_mask = argv[1] task_5.1b
+#ip_mask = argv[1] task_5.1bn
 ip_mask = input('Please enter IP address in format x.x.x.x/bitmask: ')
 
 ip_list = ip_mask.split('/')[0].split('.')

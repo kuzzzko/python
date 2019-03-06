@@ -12,12 +12,12 @@ def get_int_vlan_map(filename):
             if 'interface ' in line:
                 interface = line.rstrip()
                 acc = False
-            if 'switchport mode access' in line:
+            elif 'switchport mode access' in line:
                 acc = True
                 acc_vlan_map_dict[interface] = 1
-            if 'access vlan' in line and acc:
+            elif 'access vlan' in line and acc:
                 acc_vlan_map_dict[interface] = int(line.split()[-1])
-            if 'allowed vlan' in line and not acc:
+            elif 'allowed vlan' in line and not acc:
                 trun_vlan_map_dict[interface] = [int(vlan) for vlan in line.split()[-1].split(',')]
     return(acc_vlan_map_dict, trun_vlan_map_dict)
 
