@@ -5,15 +5,12 @@ from draw_network_graph import draw_topology
 
 files = ['sh_cdp_n_r1.txt','sh_cdp_n_r2.txt','sh_cdp_n_r3.txt','sh_cdp_n_sw1.txt']
 
-dict_all = {}
-
+dict_unique = {}
 for namefile in files:
     with open(namefile,'r') as file:
-        dict_all.update(parse_cdp_neighbors(file.read()))
+        dict_part = parse_cdp_neighbors(file.read())
+    for key_part,value_part in dict_part.items():
+        if not any(key == value_part for key in dict_unique.keys()):
+            dict_unique[key_part] = value_part
 
-for item in dict_all.values():
-    if item in dict_all.keys():
-        dict_all[item] = None
-
-dict_unique = {key : item for key,item in dict_all.items() if item != None}
 draw_topology(dict_unique)
