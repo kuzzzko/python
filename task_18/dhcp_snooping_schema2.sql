@@ -6,7 +6,7 @@ create table switches (
 );
 
 create table dhcp (
-    mac          text primary key,
+    mac          text,
     ip           text,
     vlan         text,
     interface    text,

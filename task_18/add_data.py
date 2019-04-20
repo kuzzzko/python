@@ -11,7 +11,6 @@ def add_to_db(db_filename,switches_dict,dhcp_snooping_dict):
     Adding 2 dict to db_filename
     '''
     conn = sqlite3.connect(db_filename)
-    
     for hostname,location in switches_dict['switches'].items():
         try:
             with conn:
@@ -20,13 +19,17 @@ def add_to_db(db_filename,switches_dict,dhcp_snooping_dict):
                 conn.execute(query, (hostname,location))
         except sqlite3.IntegrityError as e:
             print('Error occured: ', e)
-
     for key,value_list in dhcp_snooping_dict.items():
+        active_switch = [row[0] for row in conn.execute("select switch from dhcp where switch = '{}'".format(key))]
+        if key in active_switch:
+            conn.execute("UPDATE dhcp set active = 0 WHERE switch = '{}'".format(key))
+            conn.commit()
+            print('Table dhcp are updated')
         for row in value_list:
             try:
                 with conn:
-                    query = '''insert into dhcp (mac, ip, vlan, interface, switch) 
-                    values (?, ?, ?, ?, '{}')'''.format(key)
+                    query = '''insert into dhcp (mac, ip, vlan, interface, switch, active) 
+                    values (?, ?, ?, ?, '{}', 1)'''.format(key)
                     conn.execute(query, row)
             except sqlite3.IntegrityError as e:
                 print('Error occured: ', e)
@@ -58,3 +61,4 @@ if db_exists:
     add_to_db(db_filename,switches_dict,dhcp_snooping_dict)
 else:
     print('DB is not exist. Please create DB first')
+

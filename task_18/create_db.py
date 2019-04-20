@@ -4,7 +4,7 @@ import os
 import sqlite3
 
 db_filename = 'dhcp_snooping.db'
-schema_filename = 'dhcp_snooping_schema.sql'
+schema_filename = 'dhcp_snooping_schema2.sql'
 db_exists = os.path.exists(db_filename)
 
 if not db_exists:

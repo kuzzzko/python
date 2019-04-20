@@ -13,9 +13,9 @@ def output_with_2args(key,value,keys,cursor_obj):
 
 def output_with_0args(cursor_obj):
     print('\nВ таблице dhcp такие записи:')
-    print('-' * 70)
+    print('-' * 73)
     for row in cursor_obj:
-        print('{:20}  {:15}  {:5}  {:18}  {}'.format(*row))
+        print('{:20}  {:15}  {:5}  {:18}  {}  {}'.format(*row))
 
 db_filename = 'dhcp_snooping.db'
 conn = sqlite3.connect(db_filename)
