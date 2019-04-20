@@ -1,6 +1,5 @@
 #!/usr/bin/env python3.6
 # -*- coding: utf-8 -*-
-
 import sqlite3
 import glob
 import re
